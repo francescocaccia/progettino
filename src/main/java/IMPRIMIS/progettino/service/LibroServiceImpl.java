@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import IMPRIMIS.progettino.entities.Libro;
+import IMPRIMIS.progettino.exception.LibroNotFound;
 import IMPRIMIS.progettino.mapper.LibroMapper;
 
 @Service
@@ -20,8 +21,12 @@ public class LibroServiceImpl implements LibroService {
 	}
 
 	@Override
-	public Libro getLibroById(Long id) {
-		return libroMapper.selectLibroById(id);
+	public Libro getLibroById(Long id) throws LibroNotFound {
+		Libro libro = libroMapper.selectLibroById(id);
+		if (libro == null) {
+			throw new LibroNotFound("Nessun libro trovato con ID: " + id);
+		}
+		return libro;
 	}
 
 	@Override
