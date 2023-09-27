@@ -1,0 +1,33 @@
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="IMPRIMIS.progettino.mapper.LibroMapper">
+
+
+    
+    <select id="selectAllLibri" resultType="IMPRIMIS.progettino.entities.Libro">
+        SELECT id, titolo, autore, genere, annodipubblicazione FROM libro
+    </select>
+
+    <select id="selectLibroById" parameterType="long" resultType="IMPRIMIS.progettino.entities.Libro">
+        SELECT id, titolo, autore, genere, annodipubblicazione 
+        FROM libro 
+        WHERE id = #{id}
+    </select>
+
+    <insert id="createLibro" parameterType="IMPRIMIS.progettino.entities.Libro">
+        INSERT INTO libro (titolo, autore, genere, annodipubblicazione) 
+        VALUES (#{titolo}, #{autore}, #{genere}, #{annodipubblicazione})
+    </insert>
+
+    <update id="updateLibro" parameterType="IMPRIMIS.progettino.entities.Libro">
+        UPDATE libro 
+        SET titolo=#{titolo}, autore=#{autore}, genere=#{genere}, annodipubblicazione=#{annodipubblicazione} 
+        WHERE id=#{id}
+    </update>
+
+    <delete id="deleteLibro" parameterType="long">
+        DELETE FROM libro WHERE id = #{id}
+    </delete>
+
+</mapper>
